@@ -1,9 +1,10 @@
-from setuptools import setup
 from inspect import cleandoc
+
+from setuptools import setup
 
 
 _version = {}
-execfile('yamlschema/_version.py', _version)
+exec(open('yamlschema/_version.py').read(), _version)
 
 
 setup(
@@ -18,7 +19,7 @@ setup(
   classifiers = [],
   scripts = ['bin/yamlschema'],
   install_requires=cleandoc('''
-    codado>=0.4.997,<0.6
+    click>=5.0,<8.0
     jsonschema==2.6.0
     ''').split()
 )

@@ -1,4 +1,4 @@
-codado>=0.4.997,<0.6
+click>=5.0,<8.0
 jsonschema==2.6.0
 mock==2.0.0
 pip>=9.0.1

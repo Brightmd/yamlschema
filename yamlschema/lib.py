@@ -1,54 +1,31 @@
 """
 Validate a YAML file
 """
+from __future__ import print_function
 
-import os
 import sys
 
 import yaml
 
-from jsonschema import validate, ValidationError, FormatChecker
+import click
 
-from codado.tx import Main
+from jsonschema import validate, FormatChecker
 
 
-class ValidateYAML(Main):
-    """
-    Validate a yaml file based on a schema
-    """
-    synopsis = "path/to/file.yml path/to/schema.yml"
-    optFlags = [
-        ['schema', None, 'Display normalized schema from file']
-    ]
-    optParameters = []
-
-    def parseArgs(self, yamlFile, yamlSchema):
-        if not os.access(yamlFile, os.R_OK):
-            raise OSError("Cannot read config file %s" % yamlFile)
-        if not os.access(yamlSchema, os.R_OK):
-            raise OSError("Cannot read schema file %s" % yamlSchema)
-
-        self['yamlFile'] = yamlFile
-        self['yamlSchema'] = yamlSchema
-
-    def postOptions(self):
-        """
-        Validate config file
-        """
-        print >>sys.stderr, "Validating {}\n".format(self['yamlFile'])
-        res = validateYAML(self['yamlFile'], self['yamlSchema'])
-        print >>sys.stderr, "{} is valid\n".format(self['yamlFile'])
-        return res
+@click.command()
+@click.argument('yamlfile', type=click.File())
+@click.argument('yamlschema', type=click.File())
+def validateYAMLCLI(yamlfile, yamlschema):
+    print("Validating {}\n".format(yamlfile.name), file=sys.stderr)
+    validateYAML(yamlfile, yamlschema)
+    print("{} is valid\n".format(yamlfile.name), file=sys.stderr)
 
 
 def validateYAML(yamlFile, yamlSchema):
     """
     Validate yaml file based off of a schema
     """
-    contents = yaml.load(open(yamlFile))
-    schema = yaml.load(open(yamlSchema))
-    try:
-        validate(contents, schema, format_checker=FormatChecker())
-        return True
-    except ValidationError, ve:
-        raise ve
+    contents = yaml.load(yamlFile)
+    schema = yaml.load(yamlSchema)
+    validate(contents, schema, format_checker=FormatChecker())
+    return True
