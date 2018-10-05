@@ -21,11 +21,11 @@ def validateYAMLCLI(yamlfile, yamlschema):
     print("{} is valid\n".format(yamlfile.name), file=sys.stderr)
 
 
-def validateYAML(yamlFile, yamlSchema):
+def validateYAML(yamlFile, yamlSchema, loader=yaml.Loader):
     """
     Validate yaml file based off of a schema
     """
-    contents = yaml.load(yamlFile)
-    schema = yaml.load(yamlSchema)
+    contents = yaml.load(yamlFile, Loader=loader)
+    schema = yaml.load(yamlSchema, Loader=loader)
     validate(contents, schema, format_checker=FormatChecker())
     return True
