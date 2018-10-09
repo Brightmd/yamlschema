@@ -14,6 +14,11 @@ twine upload dist/*<version>*
 ```
 
 ## Change Log
+### [0.2.1] - 2018-10-08
+#### Fixed
+- 0.1.5 broke callers that need to pass a filename instead of an open file; now you
+  can pass either a string or a file
+
 ### [0.2.0] - 2018-10-05
 #### Added
 - `validateYAML` now accepts a loader parameter so that the faster CLoader parser can be used
@@ -45,6 +50,7 @@ twine upload dist/*<version>*
 #### Changed
 - Minor stylistic updates
 
+[0.2.1]: https://github.com/Brightmd/yamlschema/compare/release-0.2.0...release-0.2.1
 [0.2.0]: https://github.com/Brightmd/yamlschema/compare/release-0.1.5...release-0.2.0
 [0.1.5]: https://github.com/Brightmd/yamlschema/compare/0.1.4...release-0.1.5
 [0.1.4]: https://github.com/Brightmd/yamlschema/compare/0.1.3...0.1.4
