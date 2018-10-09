@@ -50,3 +50,10 @@ def test_validateConfigBad(runner, schemaFile, configBad):
     """
     x = runner.invoke(lib.validateYAMLCLI, [configBad, schemaFile])
     assert isinstance(x.exception, ValidationError)
+
+
+def test_validateYAMLWithFilename(schemaFile, configGood):
+    """
+    Can you invoke validateYAML with a filename as well as an open file?
+    """
+    assert lib.validateYAML(schemaFile, configGood)

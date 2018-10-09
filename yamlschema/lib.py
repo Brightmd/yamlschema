@@ -25,6 +25,10 @@ def validateYAML(yamlFile, yamlSchema):
     """
     Validate yaml file based off of a schema
     """
+    if isinstance(yamlFile, str):
+        yamlFile = open(yamlFile)
+    if isinstance(yamlSchema, str):
+        yamlSchema = open(yamlSchema)
     contents = yaml.load(yamlFile)
     schema = yaml.load(yamlSchema)
     validate(contents, schema, format_checker=FormatChecker())
