@@ -9,5 +9,5 @@ pytest-flakes==2.0.0
 pyyaml==3.12
 tox==2.9.1
 twine==1.9.1
-twisted==17.9.0
+twisted==22.4.0
 wheel==0.30.0
